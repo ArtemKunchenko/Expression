@@ -5,7 +5,9 @@
 using namespace std;
 bool conditionPushStack(char element);
 bool conditionPopStack(char element1, char element2);
+bool conditionMistake(char element1, char element2);
 void checkExpression(char* expression, Stack<char> s );
+void prinMistake(char* expression, char element);
 int main()
 {
 	const int size = 100;
@@ -35,6 +37,14 @@ bool conditionPopStack(char element1, char element2)
 	return false;
 }
 
+bool conditionMistake(char element1, char element2)
+{
+	if (element1 == '(' && (element2 == ']' || element2 == '}')) return true;
+	if (element1 == '[' && (element2 == ')' || element2 == '}')) return true;
+	if (element1 == '{' && (element2 == ']' || element2 == ')')) return true;
+	return false;
+}
+
 void checkExpression(char* expression, Stack<char> s)
 {
 	int counter = 0;
@@ -52,9 +62,25 @@ void checkExpression(char* expression, Stack<char> s)
 				s.pop();
 				counter--;
 			}
+			else if (conditionMistake(s.top(), expression[i]))
+			{
+				prinMistake(expression, expression[i]);
+				break;
+			}
+
 		}
 		
 	}
 	if (counter == 0) cout << "Expression " << expression << " is correct\n";
-	else cout << "Expression " << expression << " has mistakes\n";
+	
+}
+
+void prinMistake(char* expression, char element)
+{
+	cout << "Expression " << expression << " has mistakes after this part ";
+	for (int i = 0; expression[i] != element; i++)
+	{
+		cout << expression[i];
+	}
+	cout << endl;
 }
