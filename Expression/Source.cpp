@@ -5,12 +5,15 @@
 using namespace std;
 bool conditionPushStack(char element);
 bool conditionPopStack(char element1, char element2);
+void checkExpression(char* expression, Stack<char> s );
 int main()
 {
 	const int size = 100;
 	char expression1[size] = "({x-y-z}*[x+2y]-(z+4x));";
 	char expression2[size] = "([x-y-z}*[x+2y)-{z+4x)];";
 	Stack<char> s(100);
+	checkExpression(expression1, s);
+	checkExpression(expression2, s);
 	system("pause");
 	return 0;
 }
@@ -30,4 +33,28 @@ bool conditionPopStack(char element1, char element2)
 	if (element1 == '[' && element2 == ']')
 		return true;
 	return false;
+}
+
+void checkExpression(char* expression, Stack<char> s)
+{
+	int counter = 0;
+	for (int i = 0; expression[i] !=';'&& expression[i] != '\0'; i++)
+	{
+		if (conditionPushStack(expression[i]))
+		{
+			s.push(expression[i]);
+			counter++;
+		}
+		else
+		{
+			if (conditionPopStack(s.top(), expression[i]))
+			{
+				s.pop();
+				counter--;
+			}
+		}
+		
+	}
+	if (counter == 0) cout << "Expression " << expression << " is correct\n";
+	else cout << "Expression " << expression << " has mistakes\n";
 }

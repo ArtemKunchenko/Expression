@@ -4,7 +4,7 @@ inline Stack<T>::Stack(int capacity)
 {
 	_capacity = capacity;
 	_size = 0;
-	_data = new T[_capacity]{ 0 };
+	_data = new T[_capacity]{ NULL };
 	_index = _capacity;
 	if (_capacity <= 0)
 	{
@@ -12,12 +12,13 @@ inline Stack<T>::Stack(int capacity)
 		_data = nullptr;
 		_index = 0;
 	}
+	/*cout << "copy default:\t" << this << endl;*/
 }
 template<class T>
 Stack<T>::Stack(const Stack& other)
 {
-	if (this == &other)
-		return *this;
+	/*if (this == &other)
+		return *this;*/
 	_index = other._index;
 	_capacity = other._capacity;
 	_size = other._size;
@@ -26,7 +27,7 @@ Stack<T>::Stack(const Stack& other)
 	{
 		_data[i] = other._data[i];
 	}
-	cout << "copy constructor:\t" << this << endl;
+	/*cout << "copy constructor:\t" << this << endl;*/
 }
 
 template<class T>
@@ -40,7 +41,7 @@ Stack<T>::Stack(Stack&& other) : _data{ nullptr }, _size{ 0 }
 	other._size = 0;
 	other._capacity = 0;
 	other._index = 0;
-	cout << "constructor moving:\t" << endl;
+	/*cout << "constructor moving:\t" << endl;*/
 }
 
 template<class T>
@@ -48,7 +49,7 @@ Stack<T>::~Stack()
 {
 	if (_data != nullptr)
 		delete[] _data;
-	cout << "destructor:\t" << this << endl;
+	/*cout << "destructor:\t" << this << endl;*/
 }
 
 template<class T>
@@ -64,7 +65,7 @@ Stack<T>& Stack<T>::operator=(const Stack& other)
 	{
 		_data[i] = other._data[i];
 	}
-	cout << "copy constructor:\t" << this << endl;
+	/*cout << "copy constructor:\t" << this << endl;*/
 	return *this;
 }
 
@@ -79,7 +80,7 @@ Stack<T>& Stack<T>::operator= (Stack&& other)
 	other._size = 0;
 	other._capacity = 0;
 	other._index = 0;
-	cout << "operator moving:\t" << endl;
+	/*cout << "operator moving:\t" << endl;*/
 }
 
 template<class T>
